@@ -236,3 +236,4 @@ qr-attendance/
 
 Passwords are hashed with PBKDF2 and the same format in both versions, so an account created in one can log in to the other if they share a MySQL database.
 # python-attendance
+# python-attendance
