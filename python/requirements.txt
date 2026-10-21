@@ -1,0 +1,7 @@
+Flask>=3.0
+PyMySQL>=1.1
+qrcode>=7.4
+Pillow>=10.0
+opencv-python-headless>=4.9
+numpy>=1.26
+tzdata>=2024.1

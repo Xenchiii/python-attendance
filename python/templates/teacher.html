@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "_history.html" import table %}
+{% block title %}Teacher Dashboard - QR Attendance{% endblock %}
+{% block head %}<meta http-equiv="refresh" content="20">{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Teacher dashboard</h1><p class="sub">Choose your room, generate a QR code, and show it to staff to time in.</p></div>
+<div class="cols">
+  <section class="card">
+    <h2>Generate QR code</h2>
+    {% if active %}
+      <div class="empty">You are timed in. Time out before generating a new code.</div>
+    {% else %}
+    <form method="post" action="{{ url_for('teacher_qr') }}">
+      <label class="field">Room or facility
+        <select name="room_id">
+          {% for r in rooms %}<option value="{{ r.id }}">{{ r.name }} - {{ r.building }}</option>{% else %}<option value="">No rooms available</option>{% endfor %}
+        </select>
+      </label>
+      <button class="btn block" type="submit">Generate QR code</button>
+    </form>
+    {% endif %}
+    {% if qr %}
+    <div class="qr-box">
+      <div class="qr"><img src="{{ qr.image }}" alt="Attendance QR code"></div>
+      <div class="timer">Expires in {{ qr.seconds // 60 }}:{{ '%02d' % (qr.seconds % 60) }}</div>
+      <div class="code">{{ qr.token }}</div>
+      <p class="sub">Staff scan this code to record your Time In.</p>
+    </div>
+    {% endif %}
+  </section>
+  <section class="card">
+    <h2>My attendance</h2>
+    {{ table(history, false, true) }}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "_history.html" import table, filter_bar %}
+{% block title %}Staff Dashboard - QR Attendance{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Staff dashboard</h1><p class="sub">Scan a teacher's QR code to record Time In and monitor rooms in use.</p></div>
+<div class="cols">
+  <section class="card no-print">
+    <h2>Scan QR code</h2>
+    {% if scanner %}
+    <form method="post" action="{{ url_for('staff_scan_image') }}" enctype="multipart/form-data">
+      <label class="field">Upload or photograph the QR code
+        <input type="file" name="photo" accept="image/*" capture="environment" required>
+      </label>
+      <button class="btn block" type="submit">Read QR code</button>
+    </form>
+    {% endif %}
+    <form method="post" action="{{ url_for('staff_scan') }}" class="stack">
+      <label class="field">Or enter the code manually
+        <div style="display:flex;gap:.5rem"><input name="token" placeholder="Paste the QR code text" required><button class="btn" type="submit">Submit</button></div>
+      </label>
+    </form>
+  </section>
+  <section class="card">
+    <h2>Rooms in use</h2>
+    {% if in_use %}
+    <div class="table-wrap"><table>
+      <thead><tr><th>Room</th><th>Teacher</th><th>Since</th></tr></thead>
+      <tbody>{% for a in in_use %}<tr><td>{{ a.room_name }}</td><td>{{ a.teacher_name }}</td><td>{{ a.time_in_text }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+    {% else %}<div class="empty">No rooms are in use right now.</div>{% endif %}
+  </section>
+</div>
+<section class="card" style="margin-top:1.25rem">
+  <h2>Attendance history</h2>
+  {{ filter_bar(filters, url_for('staff')) }}
+  {{ table(history, true, false) }}
+</section>
+{% endblock %}

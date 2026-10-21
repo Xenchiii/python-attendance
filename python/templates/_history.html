@@ -1,0 +1,37 @@
+{% macro table(rows, show_teacher, allow_timeout) %}
+{% if not rows %}
+<div class="empty">No attendance records found.</div>
+{% else %}
+<div class="table-wrap"><table>
+<thead><tr>
+{% if show_teacher %}<th>Teacher</th>{% endif %}
+<th>Room</th><th>Time in</th><th>Time out</th><th>Duration</th><th>Status</th>
+{% if allow_timeout %}<th class="no-print"></th>{% endif %}
+</tr></thead>
+<tbody>
+{% for a in rows %}
+<tr>
+{% if show_teacher %}<td>{{ a.teacher_name }}</td>{% endif %}
+<td>{{ a.room_name }}</td><td>{{ a.time_in_text }}</td><td>{{ a.time_out_text }}</td>
+<td>{% if a.duration_minutes is not none %}{{ a.duration_minutes }} min{% else %}-{% endif %}</td>
+<td><span class="badge {{ a.status }}">{{ a.status|pretty }}</span></td>
+{% if allow_timeout %}<td class="no-print">{% if a.status == 'ACTIVE' %}<form method="post" action="{{ url_for('teacher_timeout') }}" class="inline"><button class="btn warn sm" type="submit">Time out</button></form>{% endif %}</td>{% endif %}
+</tr>
+{% endfor %}
+</tbody></table></div>
+{% endif %}
+{% endmacro %}
+
+{% macro filter_bar(filters, action) %}
+<form method="get" action="{{ action }}" class="toolbar">
+  <input name="q" value="{{ filters.q }}" placeholder="Search teacher or room">
+  <select name="status">
+    <option value="">All statuses</option>
+    <option value="ACTIVE" {{ 'selected' if filters.status == 'ACTIVE' }}>Active</option>
+    <option value="COMPLETED" {{ 'selected' if filters.status == 'COMPLETED' }}>Completed</option>
+  </select>
+  <input type="date" name="date" value="{{ filters.date }}">
+  <button class="btn" type="submit">Apply</button>
+  <a class="btn ghost" href="{{ url_for('report', q=filters.q, status=filters.status, date=filters.date) }}">Download CSV</a>
+</form>
+{% endmacro %}
