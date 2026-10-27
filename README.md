@@ -16,6 +16,8 @@ There are two versions of the same app in this folder. They do the same job and 
 
 If you just want to see it run in two minutes, use the Python version with SQLite.
 
+The interface uses the project logo as its favicon and brand mark, with a navy and light-blue theme taken from it. It has smooth page entrances and page-to-page transitions, scroll-triggered reveals, animated stat counters, a pulsing live indicator, a countdown bar and rotating gradient border on the QR code, 3D hover tilt on the stat cards, a logo that assembles itself on the login screen, loading skeletons, and button and toast animations. Everything respects the "reduce motion" setting on your device.
+
 ---
 
 ## The accounts you can log in with
@@ -221,7 +223,7 @@ qr-attendance/
   java/
     pom.xml
     src/main/java/ph/attendance/   server code
-    src/main/resources/public/     pages, scripts, styles
+    src/main/resources/public/     pages, scripts, styles, favicon, logo images
   python/
     app.py              routes
     services.py         the attendance rules
@@ -230,7 +232,7 @@ qr-attendance/
     seed.py             creates the database and accounts
     accounts.py         the starter account list
     templates/          the pages
-    static/app.css
+    static/             stylesheet, favicon, logo images, web manifest
     tests/
 ```
 

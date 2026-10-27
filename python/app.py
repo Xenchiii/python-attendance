@@ -3,7 +3,7 @@ import io
 import os
 import time
 
-from flask import Flask, Response, flash, g, redirect, render_template, request, session, url_for
+from flask import Flask, Response, flash, g, redirect, render_template, request, send_from_directory, session, url_for
 from functools import wraps
 
 import db
@@ -51,6 +51,10 @@ def create_app():
             return error
         app.logger.exception(error)
         return Response("Something went wrong on the server", status=500)
+
+    @app.get("/favicon.ico")
+    def favicon():
+        return send_from_directory(app.static_folder, "favicon.ico", mimetype="image/vnd.microsoft.icon")
 
     @app.get("/")
     def index():

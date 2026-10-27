@@ -75,8 +75,7 @@ INSERT INTO users (role, employee_no, first_name, last_name, email, password_has
 VALUES ('admin', 'ADMIN-001', 'System', 'Administrator', 'admin124@attendance.ph', '4166dc3dcc8a072c51aaaeeef2bf501e:d08681afbbf0adb15add0c6ea0024a9e84106008544f3edd7ebfd7f35370431d');
 
 INSERT INTO rooms (code, name, building, `floor`, capacity) VALUES
-  ('RM-101', 'Room 101', 'Main Building', '1st Floor', 40),
-  ('RM-102', 'Room 102', 'Main Building', '1st Floor', 40),
-  ('LAB-1', 'Computer Lab 1', 'Tech Building', '2nd Floor', 35),
-  ('LAB-2', 'Science Lab', 'Tech Building', '2nd Floor', 30),
-  ('AVR', 'AV Room', 'Annex', 'Ground Floor', 80);
+  ('CISCO ROOM', 'B5.24', 'Building 4', '2nd Floor', 40),
+  ('LECTURE ROOM', 'B2.47', 'Building 2', '4th Floor', 40),
+  ('LECTURE ROOM', 'B2.36', 'Building 2', '3rd Floor', 35),
+  ('BROADCASTING ROOM', 'B4.12', 'Building 2', '2nd Floor', 30),

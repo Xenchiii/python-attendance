@@ -22,6 +22,7 @@
     {% if qr %}
     <div class="qr-box">
       <div class="qr"><img src="{{ qr.image }}" alt="Attendance QR code"></div>
+      <div class="bar"><i style="animation-delay:-{{ 300 - qr.seconds }}s"></i></div>
       <div class="timer">Expires in {{ qr.seconds // 60 }}:{{ '%02d' % (qr.seconds % 60) }}</div>
       <div class="code">{{ qr.token }}</div>
       <p class="sub">Staff scan this code to record your Time In.</p>
@@ -29,7 +30,7 @@
     {% endif %}
   </section>
   <section class="card">
-    <h2>My attendance</h2>
+    <h2 class="live">My attendance</h2>
     {{ table(history, false, true) }}
   </section>
 </div>
